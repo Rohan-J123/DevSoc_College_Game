@@ -1,1 +1,1 @@
-# pre-induction-devsoc
+# DevSoc Zombie Game Based on College Model
