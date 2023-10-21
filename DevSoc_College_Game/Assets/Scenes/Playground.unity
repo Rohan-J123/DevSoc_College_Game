@@ -1658,7 +1658,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.5529412}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5529412}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6171,7 +6171,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 8338988565591873055}
   m_Lens:
-    FieldOfView: 65
+    FieldOfView: 50
     OrthographicSize: 10
     NearClipPlane: 0.001
     FarClipPlane: 500
@@ -6315,7 +6315,7 @@ MonoBehaviour:
     m_InputAxisValue: 0
     m_InvertInput: 1
     m_MinValue: -70
-    m_MaxValue: 25
+    m_MaxValue: 30
     m_Wrap: 0
     m_Recentering:
       m_enabled: 0
@@ -14029,7 +14029,7 @@ Camera:
     height: 1
   near clip plane: 0.001
   far clip plane: 500
-  field of view: 65
+  field of view: 50
   orthographic: 0
   orthographic size: 10
   m_Depth: -1

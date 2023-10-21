@@ -71,8 +71,10 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator shooting(){
         yield return new WaitForSeconds(0.6f);
-        Vector3 shootDirection = (mouseWorldPosition - bulletSpawnPoint.position).normalized;
-        Instantiate(bullet, bulletSpawnPoint.position, Quaternion.LookRotation(shootDirection, Vector3.up));
+        if (starterAssetsInputs.attack) {
+            Vector3 shootDirection = (mouseWorldPosition - bulletSpawnPoint.position).normalized;
+            Instantiate(bullet, bulletSpawnPoint.position, Quaternion.LookRotation(shootDirection, Vector3.up));
+        }
         isShooting = false;
     }
 }
