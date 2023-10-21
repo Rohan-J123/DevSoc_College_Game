@@ -8,6 +8,7 @@ TagManager:
   - CameraFollow
   - PlayerAttackKnife
   - PlayerAttackPistol
+  - LaserPoint
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - 
   - Character
   - Ground
-  - 
+  - Camera
   - 
   - 
   - 
