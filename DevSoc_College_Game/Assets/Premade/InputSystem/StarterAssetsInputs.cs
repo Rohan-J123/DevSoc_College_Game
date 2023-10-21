@@ -16,6 +16,7 @@ namespace StarterAssets
 		public bool attack;
 		public bool knife;
 		public bool pistol;
+		public bool assault;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -67,6 +68,11 @@ namespace StarterAssets
 		{
 			PistolInput(value.isPressed);
 		}
+
+		public void OnAssault(InputValue value)
+		{
+			AssaultInput(value.isPressed);
+		}
 #endif
 
 
@@ -108,6 +114,11 @@ namespace StarterAssets
 		public void PistolInput(bool newPistolState)
 		{
 			pistol = newPistolState;
+		}
+
+		public void AssaultInput(bool newAssaultState)
+		{
+			assault = newAssaultState;
 		}
 
 		private void OnApplicationFocus(bool hasFocus)
