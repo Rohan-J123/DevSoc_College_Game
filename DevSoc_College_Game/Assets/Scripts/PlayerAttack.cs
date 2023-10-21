@@ -19,7 +19,8 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private Transform bulletSpawnPointPistol;
     [SerializeField] private Transform bulletSpawnPointAssault;
 
-    [SerializeField] private Rig aimRig;
+    [SerializeField] private Rig aimRigPistol;
+    [SerializeField] private Rig aimRigAssault;
     public Vector3 mouseWorldPosition;
 
     // Start is called before the first frame update
@@ -57,15 +58,17 @@ public class PlayerAttack : MonoBehaviour
                 selfAnim.SetBool("isAiming", false);
                 selfAnim.SetBool("isAssaultShooting", false);
 
-                aimRig.weight = 0f;
+                aimRigPistol.weight = 0f;
+                aimRigAssault.weight = 0f;
             }
             else if (pistol.activeSelf){
+                aimRigAssault.weight = 0f;
                 transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, Camera.main.transform.localEulerAngles.y - 15f, transform.localEulerAngles.z);
                 
                 selfAnim.SetBool("isAttacking", false);
                 selfAnim.SetBool("isAssaultShooting", false);
 
-                aimRig.weight = 1f;
+                aimRigPistol.weight = 1f;
                 if (starterAssetsInputs.attack) {
                     selfAnim.SetBool("isPistolShooting", true);
                     selfAnim.SetBool("isAiming", false);
@@ -88,29 +91,27 @@ public class PlayerAttack : MonoBehaviour
                 selfAnim.SetBool("isAiming", false);
                 selfAnim.SetBool("isAssaultShooting", true);
 
-                aimRig.weight = 0f;
+                aimRigPistol.weight = 0f;
+                aimRigAssault.weight = 1f;
                 StartCoroutine(shootingPistol());
-                // if (starterAssetsInputs.attack) {
-                //     selfAnim.SetBool("isPistolShooting", true);
-                //     selfAnim.SetBool("isAiming", false);
+                if (starterAssetsInputs.attack) {
+                    selfAnim.SetBool("isAssaultShooting", true);
+                    selfAnim.SetBool("isAssaultAiming", false);
 
-                //     if(isShooting == false){
-                //         isShooting = true;
-                //         StartCoroutine(shooting());
-                //     }  
-                // }
-                // else {
-                //     selfAnim.SetBool("isPistolShooting", false);
-                //     selfAnim.SetBool("isAiming", true);
-                // }
-                if(isShootingAssault == false){
-                    isShootingAssault = true;
-                    StartCoroutine(shootingAssault());
-                } 
+                    if(isShootingAssault == false){
+                        isShootingAssault = true;
+                        StartCoroutine(shootingAssault());
+                    } 
+                }
+                else {
+                    selfAnim.SetBool("isAssaultShooting", false);
+                    selfAnim.SetBool("isAssaultAiming", true);
+                }
             }
         }
         else {
-            aimRig.weight = 0f;
+            aimRigPistol.weight = 0f;
+            aimRigAssault.weight = 0f;
             selfAnim.SetBool("isAttacking", false);
             selfAnim.SetBool("isPistolShooting", false);
             selfAnim.SetBool("isAiming", false);
@@ -120,23 +121,19 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator shootingPistol(){
         yield return new WaitForSeconds(0.6f);
-        // aimRig.weight = 0f;
         if (starterAssetsInputs.attack && pistol.activeSelf) {
             Vector3 shootDirection = (mouseWorldPosition - bulletSpawnPointPistol.position).normalized;
             Instantiate(bullet, bulletSpawnPointPistol.position, Quaternion.LookRotation(shootDirection, Vector3.up));
         }
-        // aimRig.weight = 1f;
         isShootingPistol = false;
     }
 
     IEnumerator shootingAssault(){
         yield return new WaitForSeconds(0.2f);
-        // aimRig.weight = 0f;
         if (starterAssetsInputs.attack && assault.activeSelf) {
             Vector3 shootDirection = (mouseWorldPosition - bulletSpawnPointAssault.position).normalized;
             Instantiate(bullet, bulletSpawnPointAssault.position, Quaternion.LookRotation(shootDirection, Vector3.up));
         }
-        // aimRig.weight = 1f;
         isShootingAssault = false;
     }
 }
