@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StarterAssets;
 
 public class PlayerAttack : MonoBehaviour
 {
     private Animator selfAnim;
+    private StarterAssetsInputs starterAssetsInputs;
 
     public GameObject knife;
     public GameObject pistol;
@@ -12,21 +14,22 @@ public class PlayerAttack : MonoBehaviour
     void Start()
     {
         selfAnim = GetComponent<Animator>();
+        starterAssetsInputs = GetComponent<StarterAssetsInputs>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) {  
+        if (starterAssetsInputs.knife) {  
             knife.SetActive(true);
             pistol.SetActive(false);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2)) {
+        if (starterAssetsInputs.pistol) {
             knife.SetActive(false);
             pistol.SetActive(true);
         }
 
-        if (Input.GetMouseButton(0) || Input.GetMouseButton(1)) {
+        if (starterAssetsInputs.aim || starterAssetsInputs.attack) {
             if(knife.activeSelf) {
                 selfAnim.SetBool("isAttacking", true);
                 selfAnim.SetBool("isShooting", false);

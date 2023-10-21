@@ -12,6 +12,10 @@ namespace StarterAssets
 		public Vector2 look;
 		public bool jump;
 		public bool sprint;
+		public bool aim;
+		public bool attack;
+		public bool knife;
+		public bool pistol;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -43,6 +47,26 @@ namespace StarterAssets
 		{
 			SprintInput(value.isPressed);
 		}
+
+		public void OnAim(InputValue value)
+		{
+			AimInput(value.isPressed);
+		}
+
+		public void OnAttack(InputValue value)
+		{
+			AttackInput(value.isPressed);
+		}
+
+		public void OnKnife(InputValue value)
+		{
+			KnifeInput(value.isPressed);
+		}
+
+		public void OnPistol(InputValue value)
+		{
+			PistolInput(value.isPressed);
+		}
 #endif
 
 
@@ -64,6 +88,26 @@ namespace StarterAssets
 		public void SprintInput(bool newSprintState)
 		{
 			sprint = newSprintState;
+		}
+
+		public void AimInput(bool newAimState)
+		{
+			aim = newAimState;
+		}
+
+		public void AttackInput(bool newAttackState)
+		{
+			attack = newAttackState;
+		}
+
+		public void KnifeInput(bool newKnifeState)
+		{
+			knife = newKnifeState;
+		}
+
+		public void PistolInput(bool newPistolState)
+		{
+			pistol = newPistolState;
 		}
 
 		private void OnApplicationFocus(bool hasFocus)
