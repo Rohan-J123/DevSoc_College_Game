@@ -89,7 +89,6 @@ public class PlayerAttack : MonoBehaviour
                 selfAnim.SetBool("isAttacking", false);
                 selfAnim.SetBool("isPistolShooting", false);
                 selfAnim.SetBool("isAiming", false);
-                selfAnim.SetBool("isAssaultShooting", true);
 
                 aimRigPistol.weight = 0f;
                 aimRigAssault.weight = 1f;
@@ -116,6 +115,7 @@ public class PlayerAttack : MonoBehaviour
             selfAnim.SetBool("isPistolShooting", false);
             selfAnim.SetBool("isAiming", false);
             selfAnim.SetBool("isAssaultShooting", false);
+            selfAnim.SetBool("isAssaultAiming", false);
         }
     }
 

@@ -10,10 +10,10 @@ public class Bullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        speed = 30f;
+        speed = 40f;
         bulletRB = GetComponent<Rigidbody>();
         bulletRB.velocity = transform.forward * speed;
-        Destroy(gameObject, 5f);
+        Destroy(gameObject, 3f);
     }
 
     // Update is called once per frame
