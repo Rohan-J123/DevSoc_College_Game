@@ -7,12 +7,14 @@ using StarterAssets;
 public class PlayerAim : MonoBehaviour
 {
     [SerializeField] private PlayerAttack playerAttack;
+    [SerializeField] private GameObject laserPoint;
     [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
 
     // Start is called before the first frame update
     void Start()
     {
         playerAttack = GetComponent<PlayerAttack>();
+        laserPoint = GameObject.FindGameObjectWithTag("LaserPoint");
     }
 
     // Update is called once per frame
@@ -22,6 +24,7 @@ public class PlayerAim : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
         if(Physics.Raycast(ray, out RaycastHit rayCastHit, 1000f, aimColliderLayerMask)){
             playerAttack.mouseWorldPosition =  rayCastHit.point;
+            laserPoint.transform.position =  rayCastHit.point;
         }
     }
 }

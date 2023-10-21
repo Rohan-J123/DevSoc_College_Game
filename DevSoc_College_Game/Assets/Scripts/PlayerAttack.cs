@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StarterAssets;
+using UnityEngine.Animations.Rigging;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private bool isShooting = false;
     [SerializeField] private Transform bulletSpawnPoint;
 
+    [SerializeField] private Rig aimRig;
     public Vector3 mouseWorldPosition;
 
     // Start is called before the first frame update
@@ -41,10 +43,11 @@ public class PlayerAttack : MonoBehaviour
                 selfAnim.SetBool("isAttacking", true);
                 selfAnim.SetBool("isShooting", false);
                 selfAnim.SetBool("isAiming", false);
+                aimRig.weight = 0f;
             }
             else if (pistol.activeSelf){
                 selfAnim.SetBool("isAttacking", false);
-
+                // aimRig.weight = 1f;
                 if (starterAssetsInputs.attack) {
                     selfAnim.SetBool("isShooting", true);
                     selfAnim.SetBool("isAiming", false);
@@ -63,6 +66,7 @@ public class PlayerAttack : MonoBehaviour
             transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, Camera.main.transform.localEulerAngles.y, transform.localEulerAngles.z);
         }
         else {
+            aimRig.weight = 0f;
             selfAnim.SetBool("isAttacking", false);
             selfAnim.SetBool("isShooting", false);
             selfAnim.SetBool("isAiming", false);
