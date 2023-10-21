@@ -40,21 +40,25 @@ public class PlayerAttack : MonoBehaviour
 
         if (starterAssetsInputs.aim || starterAssetsInputs.attack) {
             if(knife.activeSelf) {
+                transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, Camera.main.transform.localEulerAngles.y, transform.localEulerAngles.z);
+
                 selfAnim.SetBool("isAttacking", true);
                 selfAnim.SetBool("isShooting", false);
                 selfAnim.SetBool("isAiming", false);
-                // aimRig.weight = 0f;
+                aimRig.weight = 0f;
             }
             else if (pistol.activeSelf){
+                transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, Camera.main.transform.localEulerAngles.y - 16f, transform.localEulerAngles.z);
+                
                 selfAnim.SetBool("isAttacking", false);
-                // aimRig.weight = 1f;
+                aimRig.weight = 1f;
                 if (starterAssetsInputs.attack) {
                     selfAnim.SetBool("isShooting", true);
                     selfAnim.SetBool("isAiming", false);
 
                     if(isShooting == false){
                         isShooting = true;
-                        // StartCoroutine(shooting());
+                        StartCoroutine(shooting());
                     }  
                 }
                 else {
@@ -63,24 +67,23 @@ public class PlayerAttack : MonoBehaviour
                 }
 
             }
-            transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, Camera.main.transform.localEulerAngles.y, transform.localEulerAngles.z);
         }
         else {
-            // aimRig.weight = 0f;
+            aimRig.weight = 0f;
             selfAnim.SetBool("isAttacking", false);
             selfAnim.SetBool("isShooting", false);
             selfAnim.SetBool("isAiming", false);
         }
     }
 
-    // IEnumerator shooting(){
-        // // aimRig.weight = 0f;
-        // yield return new WaitForSeconds(0.6f);
-        // if (starterAssetsInputs.attack) {
-        //     Vector3 shootDirection = (mouseWorldPosition - bulletSpawnPoint.position).normalized;
-        //     Instantiate(bullet, bulletSpawnPoint.position, Quaternion.LookRotation(shootDirection, Vector3.up));
-        // }
-        // // aimRig.weight = 1f;
-        // isShooting = false;
-    // }
+    IEnumerator shooting(){
+        yield return new WaitForSeconds(0.6f);
+        aimRig.weight = 0f;
+        if (starterAssetsInputs.attack) {
+            Vector3 shootDirection = (mouseWorldPosition - bulletSpawnPoint.position).normalized;
+            Instantiate(bullet, bulletSpawnPoint.position, Quaternion.LookRotation(shootDirection, Vector3.up));
+        }
+        aimRig.weight = 1f;
+        isShooting = false;
+    }
 }

@@ -1,24 +1,9 @@
 fileFormatVersion: 2
-guid: 04b8f0d7cd932c9438c3436acac206a1
+guid: b601e04b0c0fed94d9513c225b7c5def
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Ch35_body
-    second: {fileID: 2100000, guid: b8d035024c81b0343ae47799b98c86e3, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Ch35_body1
-    second: {fileID: 2100000, guid: dc2ae1e5f21c62a408284a15d89c2d82, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Ch35_body2
-    second: {fileID: 2100000, guid: e84bb041b8c91bb4bb3313fd269ac893, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
