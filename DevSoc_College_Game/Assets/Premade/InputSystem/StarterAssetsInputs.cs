@@ -17,6 +17,7 @@ namespace StarterAssets
 		public bool knife;
 		public bool pistol;
 		public bool assault;
+		public bool collect;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -73,6 +74,11 @@ namespace StarterAssets
 		{
 			AssaultInput(value.isPressed);
 		}
+
+		public void OnCollect(InputValue value)
+		{
+			CollectInput(value.isPressed);
+		}
 #endif
 
 
@@ -119,6 +125,11 @@ namespace StarterAssets
 		public void AssaultInput(bool newAssaultState)
 		{
 			assault = newAssaultState;
+		}
+
+		public void CollectInput(bool newCollectState)
+		{
+			collect = newCollectState;
 		}
 
 		private void OnApplicationFocus(bool hasFocus)

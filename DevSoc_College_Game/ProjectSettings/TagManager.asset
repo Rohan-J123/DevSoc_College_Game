@@ -9,6 +9,7 @@ TagManager:
   - PlayerAttackKnife
   - PlayerAttackPistol
   - LaserPoint
+  - CollectText
   layers:
   - Default
   - TransparentFX

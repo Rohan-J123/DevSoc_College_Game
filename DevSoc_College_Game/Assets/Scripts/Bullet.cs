@@ -20,4 +20,8 @@ public class Bullet : MonoBehaviour
     void OnTriggerEnter(Collider col){
         Destroy(gameObject);
     }
+
+    void OnCollisionEnter(Collision col){
+        Destroy(gameObject, 0.05f);
+    }
 }
