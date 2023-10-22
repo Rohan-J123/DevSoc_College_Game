@@ -57,18 +57,21 @@ public class PlayerAttack : MonoBehaviour
                 selfAnim.SetBool("isPistolShooting", false);
                 selfAnim.SetBool("isAiming", false);
                 selfAnim.SetBool("isAssaultShooting", false);
+                selfAnim.SetBool("isAssaultAiming", false);
 
                 aimRigPistol.weight = 0f;
                 aimRigAssault.weight = 0f;
             }
             else if (pistol.activeSelf){
-                aimRigAssault.weight = 0f;
+                isShootingAssault = false;
                 transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, Camera.main.transform.localEulerAngles.y - 15f, transform.localEulerAngles.z);
                 
                 selfAnim.SetBool("isAttacking", false);
                 selfAnim.SetBool("isAssaultShooting", false);
+                selfAnim.SetBool("isAssaultAiming", false);
 
                 aimRigPistol.weight = 1f;
+                aimRigAssault.weight = 0f;
                 if (starterAssetsInputs.attack) {
                     selfAnim.SetBool("isPistolShooting", true);
                     selfAnim.SetBool("isAiming", false);
@@ -84,6 +87,7 @@ public class PlayerAttack : MonoBehaviour
                 }
             }
             else if (assault.activeSelf){
+                isShootingPistol = false;
                 transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, Camera.main.transform.localEulerAngles.y + 52f, transform.localEulerAngles.z);
                 
                 selfAnim.SetBool("isAttacking", false);
@@ -92,7 +96,6 @@ public class PlayerAttack : MonoBehaviour
 
                 aimRigPistol.weight = 0f;
                 aimRigAssault.weight = 1f;
-                StartCoroutine(shootingPistol());
                 if (starterAssetsInputs.attack) {
                     selfAnim.SetBool("isAssaultShooting", true);
                     selfAnim.SetBool("isAssaultAiming", false);
@@ -109,6 +112,9 @@ public class PlayerAttack : MonoBehaviour
             }
         }
         else {
+            if(starterAssetsInputs.move.x != 0 || starterAssetsInputs.move.y != 0 || starterAssetsInputs.jump) {
+                transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, Camera.main.transform.localEulerAngles.y, transform.localEulerAngles.z);
+            }
             aimRigPistol.weight = 0f;
             aimRigAssault.weight = 0f;
             selfAnim.SetBool("isAttacking", false);
@@ -120,6 +126,7 @@ public class PlayerAttack : MonoBehaviour
     }
 
     IEnumerator shootingPistol(){
+        isShootingPistol = true;
         yield return new WaitForSeconds(0.6f);
         if (starterAssetsInputs.attack && pistol.activeSelf) {
             Vector3 shootDirection = (mouseWorldPosition - bulletSpawnPointPistol.position).normalized;
@@ -129,6 +136,7 @@ public class PlayerAttack : MonoBehaviour
     }
 
     IEnumerator shootingAssault(){
+        isShootingAssault = true;
         yield return new WaitForSeconds(0.2f);
         if (starterAssetsInputs.attack && assault.activeSelf) {
             Vector3 shootDirection = (mouseWorldPosition - bulletSpawnPointAssault.position).normalized;
