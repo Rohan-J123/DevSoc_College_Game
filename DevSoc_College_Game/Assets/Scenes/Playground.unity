@@ -2237,8 +2237,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -406, y: 138}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -319, y: 138}
+  m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &412853103
 MonoBehaviour:
@@ -3482,8 +3482,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -406, y: 83}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -319, y: 83}
+  m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &762364691
 MonoBehaviour:
@@ -3505,7 +3505,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '2. PISTOL    [20]
+  m_text: '2. PISTOL    [30]
 
 '
   m_isRightToLeft: 0
@@ -5215,8 +5215,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -406, y: 28}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -319, y: 28}
+  m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1229162429
 MonoBehaviour:
@@ -5238,7 +5238,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '3. ASSAULT [20]
+  m_text: '3. ASSAULT [100]
 
 '
   m_isRightToLeft: 0
@@ -17941,6 +17941,11 @@ MonoBehaviour:
   aimRigPistol: {fileID: 35354968}
   aimRigAssault: {fileID: 671823912}
   mouseWorldPosition: {x: 0, y: 0, z: 0}
+  knifeText: {fileID: 412853103}
+  pistolText: {fileID: 762364691}
+  assaultText: {fileID: 1229162429}
+  bulletCountPistol: 0
+  bulletCountAssault: 0
 --- !u!114 &6982812147933622149
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StarterAssets;
+using UnityEngine.UI;
 using UnityEngine.Animations.Rigging;
+using TMPro;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -23,30 +25,60 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private Rig aimRigAssault;
     public Vector3 mouseWorldPosition;
 
+    [SerializeField] private TMP_Text knifeText;
+    [SerializeField] private TMP_Text pistolText;
+    [SerializeField] private TMP_Text assaultText;
+
+    public int bulletCountPistol;
+    public int bulletCountAssault;
+
+
     // Start is called before the first frame update
     void Start()
     {
         selfAnim = GetComponent<Animator>();
         starterAssetsInputs = GetComponent<StarterAssetsInputs>();
+
+        bulletCountAssault = 100;
+        bulletCountPistol = 30;
+
+        knifeText.fontSize = 36;
+        pistolText.fontSize = 25;
+        assaultText.fontSize = 25;
     }
 
     // Update is called once per frame
     void Update()
     {
+        pistolText.SetText("2. PISTOL    [" + bulletCountPistol + "]");
+        assaultText.SetText("3. ASSAULT [" + bulletCountAssault + "]");
+        
         if (starterAssetsInputs.knife) {  
             knife.SetActive(true);
             pistol.SetActive(false);
             assault.SetActive(false);
+
+            knifeText.fontSize = 36;
+            pistolText.fontSize = 25;
+            assaultText.fontSize = 25;
         }
         if (starterAssetsInputs.pistol) {
             knife.SetActive(false);
             pistol.SetActive(true);
             assault.SetActive(false);
+
+            knifeText.fontSize = 25;
+            pistolText.fontSize = 36;
+            assaultText.fontSize = 25;
         }
         if (starterAssetsInputs.assault) {
             knife.SetActive(false);
             pistol.SetActive(false);
             assault.SetActive(true);
+
+            knifeText.fontSize = 25;
+            pistolText.fontSize = 25;
+            assaultText.fontSize = 36;
         }
 
         if (starterAssetsInputs.aim || starterAssetsInputs.attack) {
@@ -72,7 +104,7 @@ public class PlayerAttack : MonoBehaviour
 
                 aimRigPistol.weight = 1f;
                 aimRigAssault.weight = 0f;
-                if (starterAssetsInputs.attack) {
+                if (starterAssetsInputs.attack && bulletCountPistol > 0) {
                     selfAnim.SetBool("isPistolShooting", true);
                     selfAnim.SetBool("isAiming", false);
 
@@ -96,7 +128,7 @@ public class PlayerAttack : MonoBehaviour
 
                 aimRigPistol.weight = 0f;
                 aimRigAssault.weight = 1f;
-                if (starterAssetsInputs.attack) {
+                if (starterAssetsInputs.attack && bulletCountAssault > 0) {
                     selfAnim.SetBool("isAssaultShooting", true);
                     selfAnim.SetBool("isAssaultAiming", false);
 
@@ -131,6 +163,7 @@ public class PlayerAttack : MonoBehaviour
         if (starterAssetsInputs.attack && pistol.activeSelf) {
             Vector3 shootDirection = (mouseWorldPosition - bulletSpawnPointPistol.position).normalized;
             Instantiate(bullet, bulletSpawnPointPistol.position, Quaternion.LookRotation(shootDirection, Vector3.up));
+            bulletCountPistol -= 1;
         }
         isShootingPistol = false;
     }
@@ -141,6 +174,7 @@ public class PlayerAttack : MonoBehaviour
         if (starterAssetsInputs.attack && assault.activeSelf) {
             Vector3 shootDirection = (mouseWorldPosition - bulletSpawnPointAssault.position).normalized;
             Instantiate(bullet, bulletSpawnPointAssault.position, Quaternion.LookRotation(shootDirection, Vector3.up));
+            bulletCountAssault -= 1;
         }
         isShootingAssault = false;
     }
