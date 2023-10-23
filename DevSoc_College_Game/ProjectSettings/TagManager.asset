@@ -10,6 +10,7 @@ TagManager:
   - PlayerAttackPistol
   - LaserPoint
   - CollectText
+  - DeadNPC
   layers:
   - Default
   - TransparentFX
