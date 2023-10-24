@@ -1,20 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using StarterAssets;
+using UnityEngine.InputSystem;
 
 public class PlayerAim : MonoBehaviour
 {
     [SerializeField] private PlayerAttack playerAttack;
     [SerializeField] private GameObject laserPoint;
+    [SerializeField] private GameObject cameraFollow;
+    [SerializeField] private GameObject mainCamera;
     [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
+    private StarterAssetsInputs starterAssetsInputs;
+    private bool isAiming;
 
     // Start is called before the first frame update
     void Start()
     {
         playerAttack = GetComponent<PlayerAttack>();
         laserPoint = GameObject.FindGameObjectWithTag("LaserPoint");
+        cameraFollow = GameObject.FindGameObjectWithTag("CameraFollow");
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+        starterAssetsInputs = GetComponent<StarterAssetsInputs>();
+        isAiming = false;
     }
 
     // Update is called once per frame
@@ -25,6 +33,17 @@ public class PlayerAim : MonoBehaviour
         if(Physics.Raycast(ray, out RaycastHit rayCastHit, 1000f, aimColliderLayerMask)){
             playerAttack.mouseWorldPosition =  rayCastHit.point;
             laserPoint.transform.position =  rayCastHit.point;
+        }
+
+        if(starterAssetsInputs.aim){
+            if(!isAiming){
+                isAiming = true;
+                // cameraFollow.transform.position = mainCamera.transform.position + new Vector3(0f, 0f, 1.5f);
+            }
+        }
+        else{
+            isAiming = false;
+            // cameraFollow.transform.position = mainCamera.transform.position + new Vector3(0f, 0f, -1.5f);
         }
     }
 }
