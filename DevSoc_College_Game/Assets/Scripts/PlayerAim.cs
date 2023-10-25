@@ -22,7 +22,7 @@ public class PlayerAim : MonoBehaviour
         cameraFollow = GameObject.FindGameObjectWithTag("CameraFollow");
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         starterAssetsInputs = GetComponent<StarterAssetsInputs>();
-        isAiming = false;
+        isAiming = false;   
     }
 
     // Update is called once per frame

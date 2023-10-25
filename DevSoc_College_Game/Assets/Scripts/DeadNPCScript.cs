@@ -51,6 +51,7 @@ public class DeadNPCScript : MonoBehaviour
                         player.GetComponent<PlayerAttack>().bulletCountAssault += (numberOfBullets * 2);
                         collectText.SetText("");
                         collected = true;
+                        isNear = false;
                     }
                 }
                 

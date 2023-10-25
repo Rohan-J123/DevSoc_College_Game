@@ -7,11 +7,11 @@ TagManager:
   - CinemachineTarget
   - CameraFollow
   - PlayerAttackKnife
-  - PlayerAttackPistol
   - LaserPoint
   - CollectText
   - DeadNPC
   - PlayerFollowCamera
+  - PlayerAttackBullet
   layers:
   - Default
   - TransparentFX
