@@ -16,14 +16,18 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private GameObject assault;
 
     [SerializeField] private GameObject bullet;
-    [SerializeField] private bool isShootingPistol = false;
-    [SerializeField] private bool isShootingAssault = false;
+
+    private bool isShootingPistol = false;
+    private bool isShootingAssault = false;
+
     [SerializeField] private Transform bulletSpawnPointPistol;
     [SerializeField] private Transform bulletSpawnPointAssault;
 
     [SerializeField] private Rig aimRigPistol;
     [SerializeField] private Rig aimRigAssault;
+
     public Vector3 mouseWorldPosition;
+    public bool audioEnabled;
 
     [SerializeField] private TMP_Text knifeText;
     [SerializeField] private TMP_Text pistolText;
@@ -31,6 +35,12 @@ public class PlayerAttack : MonoBehaviour
 
     public int bulletCountPistol;
     public int bulletCountAssault;
+
+    private AudioSource assaultAudioSource;
+    [SerializeField] private AudioClip assaultAudioClip;
+
+    private AudioSource pistoltAudioSource;
+    [SerializeField] private AudioClip pistolAudioClip;
 
 
     // Start is called before the first frame update
@@ -45,6 +55,9 @@ public class PlayerAttack : MonoBehaviour
         knifeText.fontSize = 36;
         pistolText.fontSize = 25;
         assaultText.fontSize = 25;
+
+        assaultAudioSource = assault.GetComponent<AudioSource>();
+        pistoltAudioSource = pistol.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -160,7 +173,13 @@ public class PlayerAttack : MonoBehaviour
     IEnumerator shootingPistol(){
         isShootingPistol = true;
         yield return new WaitForSeconds(0.6f);
+
         if (starterAssetsInputs.attack && pistol.activeSelf) {
+            if (audioEnabled)
+            {
+                pistoltAudioSource.PlayOneShot(pistolAudioClip);
+            }
+
             Vector3 shootDirection = (mouseWorldPosition - bulletSpawnPointPistol.position).normalized;
             Instantiate(bullet, bulletSpawnPointPistol.position, Quaternion.LookRotation(shootDirection, Vector3.up));
             bulletCountPistol -= 1;
@@ -170,7 +189,13 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator shootingAssault(){
         isShootingAssault = true;
+        if (audioEnabled)
+        {
+            assaultAudioSource.PlayOneShot(assaultAudioClip);
+        }
+
         yield return new WaitForSeconds(0.2f);
+
         if (starterAssetsInputs.attack && assault.activeSelf) {
             Vector3 shootDirection = (mouseWorldPosition - bulletSpawnPointAssault.position).normalized;
             Instantiate(bullet, bulletSpawnPointAssault.position, Quaternion.LookRotation(shootDirection, Vector3.up));
