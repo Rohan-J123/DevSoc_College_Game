@@ -1,11 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ZombieScript : MonoBehaviour
+public class enemy_AI : MonoBehaviour
 {
-      
     [SerializeField] private Animator animator;
     public NavMeshAgent agent;
 
@@ -29,14 +29,6 @@ public class ZombieScript : MonoBehaviour
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
 
     private void Update(){
         //check for sight and attack range
@@ -111,6 +103,4 @@ public class ZombieScript : MonoBehaviour
 
         agent.SetDestination(player.position);
     }
-
-    
 }

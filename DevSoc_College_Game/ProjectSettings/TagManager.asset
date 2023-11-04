@@ -12,6 +12,7 @@ TagManager:
   - DeadNPC
   - PlayerFollowCamera
   - PlayerAttackBullet
+  - background
   layers:
   - Default
   - TransparentFX
