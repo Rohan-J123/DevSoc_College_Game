@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine.AI;
 
 public class ZombieScript : MonoBehaviour
 {
-      
+    public static ZombieScript instance;      
     [SerializeField] private Animator animator;
     public NavMeshAgent agent;
 
@@ -22,9 +23,11 @@ public class ZombieScript : MonoBehaviour
 
     //used for attacking
     public float timeBetweenAttack;
+    public float timeBetweenWalk;
     bool attacked;
 
     private void Awake(){
+        instance = this;
         animator = GetComponentInChildren<Animator>();
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
@@ -58,6 +61,7 @@ public class ZombieScript : MonoBehaviour
     {
         animator.SetBool("IsAttacking",true);
         animator.SetBool("IsWalking",false);
+        animator.SetBool("isAttacked",false);
 
         agent.SetDestination(transform.position);
         transform.LookAt(player);
@@ -77,12 +81,14 @@ public class ZombieScript : MonoBehaviour
     {
         animator.SetBool("IsWalking",true);
         animator.SetBool("IsAttacking",false);
+        animator.SetBool("isAttacked",false);
         
         if(!walkPointSet){
             SearchWalkPoint();
         }
         if(walkPointSet){
             agent.SetDestination(walkPoint);
+            ResetWalk();
         }
 
         Vector3 distanceWalkPoint = transform.position - walkPoint;
@@ -90,6 +96,12 @@ public class ZombieScript : MonoBehaviour
         if(distanceWalkPoint.magnitude < 1f){
             walkPointSet = false;
         }
+    }
+
+    IEnumerator ResetWalk(){
+        animator.SetBool("IsIdle",true);
+        yield return new WaitForSeconds(1);
+        animator.SetBool("IsIdle",false);
     }
 
     private void SearchWalkPoint()
@@ -108,6 +120,7 @@ public class ZombieScript : MonoBehaviour
     {
         animator.SetBool("IsWalking",true);
         animator.SetBool("IsAttacking",false);
+        animator.SetBool("isAttacked",false);
 
         agent.SetDestination(player.position);
     }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,9 +26,11 @@ public class healthBar : MonoBehaviour
             GameObject boneHip = transform.parent.gameObject;
             GameObject zombie = boneHip.transform.parent.gameObject;
             Animator zombieAnim = zombie.GetComponent<Animator>();
-            zombieAnim.SetBool("isKilled", true);
+            ZombieScript.instance.enabled = false;
+            zombieAnim.SetBool("IsKilled", true);
             zombieAnim.SetBool("IsWalking", false);
             zombieAnim.SetBool("IsAttacking", false);
+            zombieAnim.SetBool("IsAttacked",false);
             Destroy(zombie, 4f);
         }
     }

@@ -19493,7 +19493,6 @@ GameObject:
   - component: {fileID: 264740652506434936}
   - component: {fileID: 516469376856569501}
   - component: {fileID: 516469376856569503}
-  - component: {fileID: 516469376856569504}
   - component: {fileID: 516469376856569505}
   m_Layer: 0
   m_Name: mixamorig5:Spine
@@ -19532,32 +19531,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!114 &516469376856569504
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 516469376856569500}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56cbcaa5986261b4eb6c50e933e20bc3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 5305732527470819996}
-  agent: {fileID: 5305732527470819997}
-  player: {fileID: 3893294199639930361}
-  isGround:
-    serializedVersion: 2
-    m_Bits: 512
-  isPlayer:
-    serializedVersion: 2
-    m_Bits: 256
-  walkPoint: {x: 0, y: 0, z: 0}
-  walkPointRange: 7
-  sightRange: 4
-  attackRange: 4
-  timeBetweenAttack: 4
 --- !u!114 &516469376856569505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26023,7 +25996,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4821788620041117729}
   m_LocalRotation: {x: -0, y: 0.9723059, z: -0, w: 0.23371188}
-  m_LocalPosition: {x: 0.66, y: -0.5733288, z: 9.32}
+  m_LocalPosition: {x: 1.77, y: -0.5733288, z: 20.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -26064,11 +26037,11 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
+  m_Speed: 3
+  m_Acceleration: 4
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -26102,6 +26075,7 @@ MonoBehaviour:
   sightRange: 5
   attackRange: 1
   timeBetweenAttack: 1
+  timeBetweenWalk: 1
 --- !u!4 &5322968447698956753
 Transform:
   m_ObjectHideFlags: 0
