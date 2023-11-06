@@ -65,14 +65,6 @@ public class PlayerAttack : MonoBehaviour
     {
         pistolText.SetText("2. PISTOL    [" + bulletCountPistol + "]");
         assaultText.SetText("3. ASSAULT [" + bulletCountAssault + "]");
-
-        if(Input.GetKey(KeyCode.G)) {
-            selfAnim.SetBool("isThrowing", true);
-        }
-        else
-        {
-            selfAnim.SetBool("isThrowing", false);
-        }
         
         if (starterAssetsInputs.knife) {  
             knife.SetActive(true);

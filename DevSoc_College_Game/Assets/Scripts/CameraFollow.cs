@@ -1,31 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
+using StarterAssets;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
     private Transform self;
-    private Transform target;
+    private GameObject player;
+    private GameObject cameraFollow;
+    private StarterAssetsInputs starterAssetsInputs;
 
     // Start is called before the first frame update
     void Start()
     {
         self = GetComponent<Transform>();
-        target = GameObject.FindGameObjectWithTag("CameraFollow").GetComponent<Transform>();
+        player = GameObject.FindGameObjectWithTag("Player");
+        cameraFollow = GameObject.FindGameObjectWithTag("CameraFollow");
+        starterAssetsInputs = player.GetComponent<StarterAssetsInputs>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        self.position = target.position;
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (starterAssetsInputs.grenade)
         {
-            if(Time.timeScale == 0f){
-                Time.timeScale = 1f;
-            }
-            else{
-                Time.timeScale = 0f;
-            }
+            self.position = cameraFollow.transform.position + new Vector3(0f, 0.1f, 0f);
+        }
+        else
+        {
+            self.position = cameraFollow.transform.position;
         }
     }
 }

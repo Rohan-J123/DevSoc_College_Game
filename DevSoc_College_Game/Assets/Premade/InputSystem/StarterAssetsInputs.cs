@@ -18,8 +18,9 @@ namespace StarterAssets
 		public bool pistol;
 		public bool assault;
 		public bool collect;
+        public bool grenade;
 
-		[Header("Movement Settings")]
+        [Header("Movement Settings")]
 		public bool analogMovement;
 
 		[Header("Mouse Cursor Settings")]
@@ -79,10 +80,15 @@ namespace StarterAssets
 		{
 			CollectInput(value.isPressed);
 		}
+
+        public void OnGrenade(InputValue value)
+        {
+            GrenadeInput(value.isPressed);
+        }
 #endif
 
 
-		public void MoveInput(Vector2 newMoveDirection)
+        public void MoveInput(Vector2 newMoveDirection)
 		{
 			move = newMoveDirection;
 		} 
@@ -132,7 +138,12 @@ namespace StarterAssets
 			collect = newCollectState;
 		}
 
-		private void OnApplicationFocus(bool hasFocus)
+        public void GrenadeInput(bool newGrenadeState)
+        {
+            grenade = newGrenadeState;
+        }
+
+        private void OnApplicationFocus(bool hasFocus)
 		{
 			SetCursorState(cursorLocked);
 		}

@@ -8,7 +8,6 @@ public class PlayerAim : MonoBehaviour
 {
     [SerializeField] private PlayerAttack playerAttack;
     [SerializeField] private GameObject laserPoint;
-    [SerializeField] private GameObject cameraFollow;
     [SerializeField] private GameObject mainCamera;
     [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
     private StarterAssetsInputs starterAssetsInputs;
@@ -19,7 +18,6 @@ public class PlayerAim : MonoBehaviour
     {
         playerAttack = GetComponent<PlayerAttack>();
         laserPoint = GameObject.FindGameObjectWithTag("LaserPoint");
-        cameraFollow = GameObject.FindGameObjectWithTag("CameraFollow");
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         starterAssetsInputs = GetComponent<StarterAssetsInputs>();
         isAiming = false;   

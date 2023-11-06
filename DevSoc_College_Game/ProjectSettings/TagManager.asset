@@ -5,13 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - CinemachineTarget
-  - CameraFollow
   - PlayerAttackKnife
   - LaserPoint
   - CollectText
   - DeadNPC
   - PlayerFollowCamera
   - PlayerAttackBullet
+  - CameraFollow
   layers:
   - Default
   - TransparentFX
