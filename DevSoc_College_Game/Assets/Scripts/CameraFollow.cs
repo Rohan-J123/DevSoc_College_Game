@@ -6,8 +6,9 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     private Transform self;
-    private GameObject player;
     private GameObject cameraFollow;
+    private Transform cameraFollowGrenade;
+    private GameObject player;
     private StarterAssetsInputs starterAssetsInputs;
 
     // Start is called before the first frame update
@@ -16,15 +17,17 @@ public class CameraFollow : MonoBehaviour
         self = GetComponent<Transform>();
         player = GameObject.FindGameObjectWithTag("Player");
         cameraFollow = GameObject.FindGameObjectWithTag("CameraFollow");
+        cameraFollowGrenade = cameraFollow.transform.Find("CameraFollowGrenade");
         starterAssetsInputs = player.GetComponent<StarterAssetsInputs>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (starterAssetsInputs.grenade)
+        if (starterAssetsInputs.grenade && !starterAssetsInputs.attack && !starterAssetsInputs.aim)
         {
-            self.position = cameraFollow.transform.position + new Vector3(0f, 0.1f, 0f);
+            
+            self.position = cameraFollowGrenade.position;
         }
         else
         {

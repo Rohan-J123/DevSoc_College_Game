@@ -22,7 +22,7 @@ public class PlayerThrow : MonoBehaviour
         if (starterAssetsInputs.grenade)
         {
             selfAnim.SetBool("isThrowing", true);
-            transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, Camera.main.transform.localEulerAngles.y + 35f, transform.localEulerAngles.z);
+            transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, Camera.main.transform.localEulerAngles.y, transform.localEulerAngles.z);
             grenade.SetActive(true);
         }
         else
