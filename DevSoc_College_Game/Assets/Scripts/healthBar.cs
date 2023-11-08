@@ -6,6 +6,8 @@ using UnityEngine;
 public class healthBar : MonoBehaviour
 {
     [SerializeField] private float health = 100f;
+    [SerializeField] private Animator animator;
+    [SerializeField] private GameObject zombie;
     public GameObject healthbar;
     // Start is called before the first frame update
     void Awake()
@@ -23,14 +25,8 @@ public class healthBar : MonoBehaviour
         else
         {
             healthbar.transform.localScale = new Vector3(0f, 1f, 1f);
-            GameObject boneHip = transform.parent.gameObject;
-            GameObject zombie = boneHip.transform.parent.gameObject;
-            Animator zombieAnim = zombie.GetComponent<Animator>();
-            ZombieScript.instance.enabled = false;
-            zombieAnim.SetBool("IsKilled", true);
-            zombieAnim.SetBool("IsWalking", false);
-            zombieAnim.SetBool("IsAttacking", false);
-            zombieAnim.SetBool("IsAttacked",false);
+            animator.SetBool("IsKilled", true);
+            animator.SetBool("IsAttacked",false);
             Destroy(zombie, 4f);
         }
     }
@@ -38,6 +34,8 @@ public class healthBar : MonoBehaviour
     {
         if (col.tag == "PlayerAttackKnife")
         {
+            animator.SetBool("IsAttacked",true);
+            animator.SetBool("IsWalking",false);
             if (health > 0)
             {
                 health -= 5f;
@@ -49,6 +47,8 @@ public class healthBar : MonoBehaviour
     {
         if (col.collider.tag == "PlayerAttackBullet")
         {
+            animator.SetBool("IsAttacked",true);
+            animator.SetBool("IsWalking",false);
             if (health > 0)
             {
                 health -= 15f;

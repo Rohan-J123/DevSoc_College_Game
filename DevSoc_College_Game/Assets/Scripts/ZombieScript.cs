@@ -88,20 +88,27 @@ public class ZombieScript : MonoBehaviour
         }
         if(walkPointSet){
             agent.SetDestination(walkPoint);
-            ResetWalk();
+            // animator.SetBool("IsIdle",true);
+            // animator.SetBool("IsWalking",false);
+            // Invoke("ResetWalk",2f);
         }
 
         Vector3 distanceWalkPoint = transform.position - walkPoint;
 
-        if(distanceWalkPoint.magnitude < 1f){
+        if(distanceWalkPoint.magnitude < timeBetweenWalk){
             walkPointSet = false;
         }
     }
 
-    IEnumerator ResetWalk(){
-        animator.SetBool("IsIdle",true);
-        yield return new WaitForSeconds(1);
-        animator.SetBool("IsIdle",false);
+    // private void ResetWalk(){
+    //     animator.SetBool("IsIdle",false);
+    //     animator.SetBool("IsWalking",true);
+    // }
+
+    private void Attacked()
+    {
+        animator.SetBool("IsAttacked",false);
+        animator.SetBool("IsWalking",true);
     }
 
     private void SearchWalkPoint()
