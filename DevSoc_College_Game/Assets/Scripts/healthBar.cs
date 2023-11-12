@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class healthBar : MonoBehaviour
 {
@@ -27,15 +28,18 @@ public class healthBar : MonoBehaviour
             healthbar.transform.localScale = new Vector3(0f, 1f, 1f);
             animator.SetBool("IsKilled", true);
             animator.SetBool("IsAttacked",false);
-            Destroy(zombie, 4f);
+            zombie.GetComponent<NavMeshAgent>().enabled = false;
+            zombie.GetComponent<ZombieScript>().enabled = false;
+            Destroy(zombie,4f);
         }
     }
     void OnTriggerEnter(Collider col)
     {
         if (col.tag == "PlayerAttackKnife")
         {
+            zombie.GetComponent<NavMeshAgent>().enabled = false;
+            zombie.GetComponent<ZombieScript>().enabled = false;
             animator.SetBool("IsAttacked",true);
-            animator.SetBool("IsWalking",false);
             if (health > 0)
             {
                 health -= 5f;
@@ -47,8 +51,9 @@ public class healthBar : MonoBehaviour
     {
         if (col.collider.tag == "PlayerAttackBullet")
         {
+            zombie.GetComponent<NavMeshAgent>().enabled = false;
+            zombie.GetComponent<ZombieScript>().enabled = false;
             animator.SetBool("IsAttacked",true);
-            animator.SetBool("IsWalking",false);
             if (health > 0)
             {
                 health -= 15f;

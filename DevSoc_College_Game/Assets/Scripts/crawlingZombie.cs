@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ZombieScript : MonoBehaviour
-{  
+public class crawlingZombie : MonoBehaviour
+{    
     [SerializeField] private Animator animator;
     public NavMeshAgent agent;
 
@@ -31,13 +31,10 @@ public class ZombieScript : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         
     }
-
-    // Update is called once per frame
 
     private void Update(){
         //check for sight and attack range
@@ -47,12 +44,17 @@ public class ZombieScript : MonoBehaviour
         if(inSightRange && !inAttackRange){
             Chase();
         }
-        if(!inSightRange && !inAttackRange){
-            Patrol();
-        }
         if(inSightRange && inAttackRange){
             Attack();
         }
+        if(!inSightRange && !inAttackRange){
+            Eatbody();
+        }
+    }
+
+    private void Eatbody()
+    {
+
     }
 
     private void Attack()
@@ -74,43 +76,12 @@ public class ZombieScript : MonoBehaviour
         attacked = false;
     }
 
-    private void Patrol()
-    {
-        animator.SetBool("IsWalking",true);
-        animator.SetBool("IsAttacking",false);
-        
-        if(!walkPointSet){
-            SearchWalkPoint();
-        }
-        if(walkPointSet){
-            agent.SetDestination(walkPoint);
-        }
-
-        Vector3 distanceWalkPoint = transform.position - walkPoint;
-
-        if(distanceWalkPoint.magnitude < timeBetweenWalk){
-            walkPointSet = false;
-        }
-    }
-
     private void Attacked()
     {
         GetComponent<NavMeshAgent>().enabled = true;
         GetComponent<ZombieScript>().enabled = true;
         animator.SetBool("IsAttacked",false);
         animator.SetBool("IsWalking",true);
-    }
-
-    private void SearchWalkPoint()
-    {
-        float walkPointZ = UnityEngine.Random.Range(-walkPointRange,walkPointRange);
-        float walkPointX = UnityEngine.Random.Range(-walkPointRange,walkPointRange);
-
-        walkPoint = new Vector3(transform.position.x + walkPointX , transform.position.y,transform.position.z + walkPointZ);
-
-        if(Physics.Raycast(walkPoint,-transform.up,2f,isGround)){
-            walkPointSet = true;
-        }
     }
 
     private void Chase()
