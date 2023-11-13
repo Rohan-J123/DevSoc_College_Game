@@ -37,8 +37,6 @@ public class healthBar : MonoBehaviour
     {
         if (col.tag == "PlayerAttackKnife")
         {
-            zombie.GetComponent<NavMeshAgent>().enabled = false;
-            zombie.GetComponent<ZombieScript>().enabled = false;
             animator.SetBool("IsAttacked",true);
             if (health > 0)
             {
@@ -51,8 +49,6 @@ public class healthBar : MonoBehaviour
     {
         if (col.collider.tag == "PlayerAttackBullet")
         {
-            zombie.GetComponent<NavMeshAgent>().enabled = false;
-            zombie.GetComponent<ZombieScript>().enabled = false;
             animator.SetBool("IsAttacked",true);
             if (health > 0)
             {
