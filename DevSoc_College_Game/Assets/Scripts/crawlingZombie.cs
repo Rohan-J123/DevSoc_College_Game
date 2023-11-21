@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -61,7 +62,6 @@ public class crawlingZombie : MonoBehaviour
 
     private void Eatbody()
     {
-        transform.LookAt(body.position);
         agent.SetDestination(body.position);
     }
 
@@ -71,7 +71,7 @@ public class crawlingZombie : MonoBehaviour
         animator.SetBool("IsCrawling",false);
 
         agent.SetDestination(transform.position);
-        transform.LookAt(player);
+        //transform.LookAt(player);
 
         if(!attacked){
             attacked = true;
@@ -97,6 +97,6 @@ public class crawlingZombie : MonoBehaviour
         animator.SetBool("IsCrawling",true);
         animator.SetBool("IsAttacking",false);
 
-        agent.SetDestination(player.position);
+       agent.SetDestination(player.position);
     }
 }
