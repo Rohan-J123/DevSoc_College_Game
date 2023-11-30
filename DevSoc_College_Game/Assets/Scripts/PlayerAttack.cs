@@ -42,6 +42,8 @@ public class PlayerAttack : MonoBehaviour
     private AudioSource pistoltAudioSource;
     [SerializeField] private AudioClip pistolAudioClip;
 
+    private PlayerAnimationController playerAnimationController;
+
 
     // Start is called before the first frame update
     void Start()
@@ -58,6 +60,8 @@ public class PlayerAttack : MonoBehaviour
 
         assaultAudioSource = assault.GetComponent<AudioSource>();
         pistoltAudioSource = pistol.GetComponent<AudioSource>();
+
+        playerAnimationController = GetComponent<PlayerAnimationController>();
     }
 
     // Update is called once per frame
@@ -202,5 +206,13 @@ public class PlayerAttack : MonoBehaviour
             bulletCountAssault -= 1;
         }
         isShootingAssault = false;
+    }
+
+    private void OnTriggerEnter(Collider col)
+    {
+        if (col.tag == "Climbable")
+        {
+            playerAnimationController.isClimbing = true;
+        }
     }
 }

@@ -12,6 +12,8 @@ TagManager:
   - PlayerFollowCamera
   - PlayerAttackBullet
   - CameraFollow
+  - Climbable
+  - LadderTop
   layers:
   - Default
   - TransparentFX
