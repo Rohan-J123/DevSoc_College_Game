@@ -78468,7 +78468,7 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 1
   m_Events:
-  - time: 1.7333333
+  - time: 1.7666667
     functionName: grenadeThrow
     data: 
     objectReferenceParameter: {fileID: 0}

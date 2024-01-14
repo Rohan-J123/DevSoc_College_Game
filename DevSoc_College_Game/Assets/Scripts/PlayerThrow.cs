@@ -29,11 +29,11 @@ public class PlayerThrow : MonoBehaviour
             selfAnim.SetBool("isThrowing", true);
             transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, Camera.main.transform.localEulerAngles.y, transform.localEulerAngles.z);
             player = GameObject.FindGameObjectWithTag("Player");
-            grenadePrefab.SetActive(true);
+            // grenadePrefab.SetActive(true);
         }
         else
         {
-            grenadePrefab.SetActive(false);
+            // grenadePrefab.SetActive(false);
             selfAnim.SetBool("isThrowing", false);
         }
 
@@ -52,9 +52,10 @@ public class PlayerThrow : MonoBehaviour
 
     public void grenadeThrow()
     {
+        Vector3 cameraForward = Camera.main.transform.forward;
         grenadePrefab.SetActive(false);
         var g = GameObject.Instantiate(grenade, grenadeStart.position, player.transform.rotation);
-        g.GetComponent<Rigidbody>().AddRelativeForce(0f, 200f, 200f);
+        g.GetComponent<Rigidbody>().AddForce(10f * cameraForward, ForceMode.Impulse);
 
     }
 }
