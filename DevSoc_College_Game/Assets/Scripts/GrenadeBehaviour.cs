@@ -27,5 +27,6 @@ public class GrenadeBehaviour : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         GameObject.Instantiate(explosionFire, transform.position, transform.rotation);
+        Destroy(gameObject);
     }
 }
