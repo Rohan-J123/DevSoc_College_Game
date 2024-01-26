@@ -2270,7 +2270,7 @@ Transform:
   m_GameObject: {fileID: 176789862}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.98924613, z: -0, w: -0.1462606}
-  m_LocalPosition: {x: 15.04, y: -0.563, z: 12.24}
+  m_LocalPosition: {x: 14.93, y: -0.567, z: 12.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2310,7 +2310,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 1
+  m_Speed: 4
   m_Acceleration: 1
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -2353,6 +2353,7 @@ MonoBehaviour:
   attackRange: 2
   isbodyrange: 0
   bodysightRange: 400
+  canEatRange: 100
   timeBetweenAttack: 1
   timeBetweenWalk: 1
 --- !u!1 &181014483
@@ -5455,7 +5456,7 @@ Transform:
   m_GameObject: {fileID: 494199217}
   serializedVersion: 2
   m_LocalRotation: {x: 0.00000005188363, y: -0.0000019286595, z: 0.00006156334, w: 1}
-  m_LocalPosition: {x: -0.0000059549347, y: 1.0549831, z: 0.005106561}
+  m_LocalPosition: {x: -0, y: 1.013, z: 0.005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12986,6 +12987,7 @@ MonoBehaviour:
   animator: {fileID: 176789864}
   zombie: {fileID: 176789862}
   healthbar: {fileID: 1579934767}
+  WaitTime: 0
 --- !u!136 &1306576831
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -20160,6 +20162,7 @@ MonoBehaviour:
   animator: {fileID: 5305732527470819996}
   zombie: {fileID: 4821788620041117729}
   healthbar: {fileID: 956717715}
+  WaitTime: 2
 --- !u!4 &517642290871274819
 Transform:
   m_ObjectHideFlags: 0

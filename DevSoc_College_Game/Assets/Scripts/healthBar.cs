@@ -10,6 +10,7 @@ public class healthBar : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject zombie;
     public GameObject healthbar;
+    public float WaitTime;
     // Start is called before the first frame update
     void Awake()
     {
@@ -40,6 +41,7 @@ public class healthBar : MonoBehaviour
             animator.SetBool("IsAttacked",true);
             zombie.GetComponent<NavMeshAgent>().enabled = false;
             zombie.GetComponent<ZombieScript>().enabled = false;
+            Invoke("ResetNav", WaitTime);
             if (health > 0)
             {
                 health -= 5f;
@@ -51,13 +53,20 @@ public class healthBar : MonoBehaviour
     {
         if (col.collider.tag == "PlayerAttackBullet")
         {
+            animator.SetBool("IsAttacked",true);
             zombie.GetComponent<NavMeshAgent>().enabled = false;
             zombie.GetComponent<ZombieScript>().enabled = false;
-            animator.SetBool("IsAttacked",true);
+            Invoke("ResetNav", WaitTime);
             if (health > 0)
             {
                 health -= 15f;
             }
         }
+    }
+
+    private void ResetNav()
+    {
+        zombie.GetComponent<NavMeshAgent>().enabled = true;
+        zombie.GetComponent<ZombieScript>().enabled = true;
     }
 }

@@ -23,9 +23,9 @@ public class crawlingZombie : MonoBehaviour
     bool walkPointSet;
     public float walkPointRange;
     bool inSightRange,inAttackRange;
-    public float sightRange,attackRange;
+    public float sightRange,attackRange,bodysightRange;
     public bool isbodyrange;
-    public float bodysightRange;
+    public float canEatRange;
 
     //used for attacking
     public float timeBetweenAttack;
@@ -49,13 +49,13 @@ public class crawlingZombie : MonoBehaviour
         inAttackRange = Physics.CheckSphere(transform.position,attackRange,isPlayer);
         isbodyrange = Physics.CheckSphere(transform.position,bodysightRange,isBody);
 
-        if(inSightRange && !inAttackRange){
+        if (inSightRange && !inAttackRange){
             Chase();
         }
         if(inSightRange && inAttackRange){
             Attack();
         }
-        if(!inSightRange && !inAttackRange){
+        if(!inSightRange && !inAttackRange && isbodyrange){
             Eatbody();
         }
     }
@@ -63,6 +63,7 @@ public class crawlingZombie : MonoBehaviour
     private void Eatbody()
     {
         agent.SetDestination(body.position);
+        animator.SetBool("IsBiting", Physics.CheckSphere(transform.position, canEatRange, isBody));
     }
 
     private void Attack()
@@ -70,13 +71,13 @@ public class crawlingZombie : MonoBehaviour
         animator.SetBool("IsAttacking",true);
         animator.SetBool("IsCrawling",false);
 
-        agent.SetDestination(transform.position);
-        //transform.LookAt(player);
-
         if(!attacked){
             attacked = true;
             Invoke(nameof(ResetAttack),timeBetweenAttack);
         }
+
+        agent.SetDestination(transform.position);
+        transform.LookAt(player);
     }
 
     private void ResetAttack()
