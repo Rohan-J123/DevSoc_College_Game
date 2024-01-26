@@ -40,6 +40,15 @@ public class ZombieScript : MonoBehaviour
             }
             
         }
+
+        if (col.tag == "Explosion")
+        {
+            if (health > 0)
+            {
+                health -= 100f;
+            }
+
+        }
     }
 
     void OnCollisionEnter(Collision col)

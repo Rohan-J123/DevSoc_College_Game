@@ -16,9 +16,8 @@ public class OilBehaviour : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (health < 0)
+        if (health <= 0)
         {
-
             GameObject.Instantiate(explosionFire, transform.position, transform.rotation);
             Destroy(gameObject);
         }
@@ -33,6 +32,14 @@ public class OilBehaviour : MonoBehaviour
                 health -= 35f;
             }
 
+        }
+
+        if (col.tag == "Explosion")
+        {
+            if (health > 0)
+            {
+                health -= 100f;
+            }
         }
     }
 
