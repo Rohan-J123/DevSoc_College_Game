@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using StarterAssets;
 using Unity.VisualScripting;
 using UnityEngine;
+using TMPro;
 
 public class PlayerThrow : MonoBehaviour
 {
@@ -14,17 +15,24 @@ public class PlayerThrow : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject grenadePrefab;
 
+    [SerializeField] private TMP_Text grenadeText;
+
+    private int grenadeCount;
+
     // Start is called before the first frame update
     void Start()
     {
         starterAssetsInputs = GetComponent<StarterAssetsInputs>();
         selfAnim = GetComponent<Animator>();
+        grenadeCount = 6;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (starterAssetsInputs.grenade)
+        grenadeText.SetText("[" + grenadeCount + "]");
+
+        if (starterAssetsInputs.grenade && grenadeCount > 0)
         {
             selfAnim.SetBool("isThrowing", true);
             transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, Camera.main.transform.localEulerAngles.y, transform.localEulerAngles.z);
@@ -56,6 +64,6 @@ public class PlayerThrow : MonoBehaviour
         grenadePrefab.SetActive(false);
         var g = GameObject.Instantiate(grenade, grenadeStart.position, player.transform.rotation);
         g.GetComponent<Rigidbody>().AddForce(15f * cameraForward, ForceMode.Impulse);
-
+        grenadeCount--;
     }
 }
