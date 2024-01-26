@@ -5,6 +5,7 @@ using UnityEngine;
 public class GrenadeBehaviour : MonoBehaviour
 {
     [SerializeField] private GameObject explosionFire;
+
     // Start is called before the first frame update
     void Start()
     {
