@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StarterAssets;
@@ -54,9 +54,9 @@ public class PlayerAttack : MonoBehaviour
         bulletCountAssault = 100;
         bulletCountPistol = 30;
 
-        knifeText.fontSize = 16;
-        pistolText.fontSize = 12;
-        assaultText.fontSize = 12;
+        knifeText.fontSize = 36;
+        pistolText.fontSize = 25;
+        assaultText.fontSize = 25;
 
         assaultAudioSource = assault.GetComponent<AudioSource>();
         pistoltAudioSource = pistol.GetComponent<AudioSource>();
@@ -67,39 +67,44 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        pistolText.SetText(""+bulletCountPistol);
-        assaultText.SetText("" + bulletCountAssault);
-        
-        if (starterAssetsInputs.knife) {  
+        pistolText.SetText("2. PISTOL    [" + bulletCountPistol + "]");
+        assaultText.SetText("3. ASSAULT [" + bulletCountAssault + "]");
+
+        if (starterAssetsInputs.knife)
+        {
             knife.SetActive(true);
             pistol.SetActive(false);
             assault.SetActive(false);
 
-            knifeText.fontSize = 16;
-            pistolText.fontSize = 12;
-            assaultText.fontSize = 12;
+            knifeText.fontSize = 36;
+            pistolText.fontSize = 25;
+            assaultText.fontSize = 25;
         }
-        if (starterAssetsInputs.pistol) {
+        if (starterAssetsInputs.pistol)
+        {
             knife.SetActive(false);
             pistol.SetActive(true);
             assault.SetActive(false);
 
-            knifeText.fontSize = 12;
-            pistolText.fontSize = 18;
-            assaultText.fontSize = 12;
+            knifeText.fontSize = 25;
+            pistolText.fontSize = 36;
+            assaultText.fontSize = 25;
         }
-        if (starterAssetsInputs.assault) {
+        if (starterAssetsInputs.assault)
+        {
             knife.SetActive(false);
             pistol.SetActive(false);
             assault.SetActive(true);
 
-            knifeText.fontSize = 12;
-            pistolText.fontSize = 12;
-            assaultText.fontSize = 18;
+            knifeText.fontSize = 25;
+            pistolText.fontSize = 25;
+            assaultText.fontSize = 36;
         }
 
-        if (starterAssetsInputs.aim || starterAssetsInputs.attack) {
-            if(knife.activeSelf) {
+        if (starterAssetsInputs.aim || starterAssetsInputs.attack)
+        {
+            if (knife.activeSelf)
+            {
                 transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, Camera.main.transform.localEulerAngles.y, transform.localEulerAngles.z);
 
                 selfAnim.SetBool("isAttacking", true);
@@ -111,57 +116,67 @@ public class PlayerAttack : MonoBehaviour
                 aimRigPistol.weight = 0f;
                 aimRigAssault.weight = 0f;
             }
-            else if (pistol.activeSelf){
+            else if (pistol.activeSelf)
+            {
                 isShootingAssault = false;
                 transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, Camera.main.transform.localEulerAngles.y - 15f, transform.localEulerAngles.z);
-                
+
                 selfAnim.SetBool("isAttacking", false);
                 selfAnim.SetBool("isAssaultShooting", false);
                 selfAnim.SetBool("isAssaultAiming", false);
 
                 aimRigPistol.weight = 1f;
                 aimRigAssault.weight = 0f;
-                if (starterAssetsInputs.attack && bulletCountPistol > 0) {
+                if (starterAssetsInputs.attack && bulletCountPistol > 0)
+                {
                     selfAnim.SetBool("isPistolShooting", true);
                     selfAnim.SetBool("isAiming", false);
 
-                    if(isShootingPistol == false){
+                    if (isShootingPistol == false)
+                    {
                         isShootingPistol = true;
                         StartCoroutine(shootingPistol());
-                    }  
+                    }
                 }
-                else {
+                else
+                {
                     selfAnim.SetBool("isPistolShooting", false);
                     selfAnim.SetBool("isAiming", true);
                 }
             }
-            else if (assault.activeSelf){
+            else if (assault.activeSelf)
+            {
                 isShootingPistol = false;
                 transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, Camera.main.transform.localEulerAngles.y + 52f, transform.localEulerAngles.z);
-                
+
                 selfAnim.SetBool("isAttacking", false);
                 selfAnim.SetBool("isPistolShooting", false);
                 selfAnim.SetBool("isAiming", false);
 
                 aimRigPistol.weight = 0f;
                 aimRigAssault.weight = 1f;
-                if (starterAssetsInputs.attack && bulletCountAssault > 0) {
+                if (starterAssetsInputs.attack && bulletCountAssault > 0)
+                {
                     selfAnim.SetBool("isAssaultShooting", true);
                     selfAnim.SetBool("isAssaultAiming", false);
 
-                    if(isShootingAssault == false){
+                    if (isShootingAssault == false)
+                    {
                         isShootingAssault = true;
                         StartCoroutine(shootingAssault());
-                    } 
+                    }
                 }
-                else {
+                else
+                {
                     selfAnim.SetBool("isAssaultShooting", false);
                     selfAnim.SetBool("isAssaultAiming", true);
                 }
             }
         }
-        else {
-            if(starterAssetsInputs.move.x != 0 || starterAssetsInputs.move.y != 0 || starterAssetsInputs.jump) {
+        else
+        {
+            if (starterAssetsInputs.move.x != 0 || starterAssetsInputs.move.y != 0 || starterAssetsInputs.jump)
+            {
                 transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, Camera.main.transform.localEulerAngles.y, transform.localEulerAngles.z);
             }
             aimRigPistol.weight = 0f;
@@ -174,11 +189,13 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    IEnumerator shootingPistol(){
+    IEnumerator shootingPistol()
+    {
         isShootingPistol = true;
         yield return new WaitForSeconds(0.6f);
 
-        if (starterAssetsInputs.attack && pistol.activeSelf) {
+        if (starterAssetsInputs.attack && pistol.activeSelf)
+        {
             if (audioEnabled)
             {
                 pistoltAudioSource.PlayOneShot(pistolAudioClip);
@@ -191,7 +208,8 @@ public class PlayerAttack : MonoBehaviour
         isShootingPistol = false;
     }
 
-    IEnumerator shootingAssault(){
+    IEnumerator shootingAssault()
+    {
         isShootingAssault = true;
         if (audioEnabled)
         {
@@ -200,7 +218,8 @@ public class PlayerAttack : MonoBehaviour
 
         yield return new WaitForSeconds(0.2f);
 
-        if (starterAssetsInputs.attack && assault.activeSelf) {
+        if (starterAssetsInputs.attack && assault.activeSelf)
+        {
             Vector3 shootDirection = (mouseWorldPosition - bulletSpawnPointAssault.position).normalized;
             Instantiate(bullet, bulletSpawnPointAssault.position, Quaternion.LookRotation(shootDirection, Vector3.up));
             bulletCountAssault -= 1;
@@ -216,3 +235,4 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 }
+*/
