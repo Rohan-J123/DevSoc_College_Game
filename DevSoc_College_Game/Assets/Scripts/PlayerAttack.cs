@@ -44,6 +44,7 @@ public class PlayerAttack : MonoBehaviour
 
     private PlayerAnimationController playerAnimationController;
 
+    [SerializeField] private GameObject crossHairImage;
 
     // Start is called before the first frame update
     void Start()
@@ -96,6 +97,15 @@ public class PlayerAttack : MonoBehaviour
             knifeText.fontSize = 25;
             pistolText.fontSize = 25;
             assaultText.fontSize = 36;
+        }
+
+        if (starterAssetsInputs.aim)
+        {
+            crossHairImage.transform.localScale = new Vector3(1f, 1f, 1f);
+        }
+        else
+        {
+            crossHairImage.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         }
 
         if (starterAssetsInputs.aim || starterAssetsInputs.attack) {
@@ -185,7 +195,18 @@ public class PlayerAttack : MonoBehaviour
             }
 
             Vector3 shootDirection = (mouseWorldPosition - bulletSpawnPointPistol.position).normalized;
-            Instantiate(bullet, bulletSpawnPointPistol.position, Quaternion.LookRotation(shootDirection, Vector3.up));
+            float x = Random.Range(-0.03f, 0.03f);
+            float y = Random.Range(-0.03f, 0.03f);
+            float z = Random.Range(-0.03f, 0.03f);
+            if (starterAssetsInputs.aim)
+            {
+                Instantiate(bullet, bulletSpawnPointPistol.position, Quaternion.LookRotation(shootDirection + new Vector3(x / 2f, y / 2f, z / 2f), Vector3.up));
+            }
+            else
+            {
+                Instantiate(bullet, bulletSpawnPointPistol.position, Quaternion.LookRotation(shootDirection + new Vector3(x, y, z), Vector3.up));
+            }
+            // Instantiate(bullet, bulletSpawnPointPistol.position, Quaternion.LookRotation(shootDirection, Vector3.up));
             bulletCountPistol -= 1;
         }
         isShootingPistol = false;
@@ -202,7 +223,16 @@ public class PlayerAttack : MonoBehaviour
 
         if (starterAssetsInputs.attack && assault.activeSelf) {
             Vector3 shootDirection = (mouseWorldPosition - bulletSpawnPointAssault.position).normalized;
-            Instantiate(bullet, bulletSpawnPointAssault.position, Quaternion.LookRotation(shootDirection, Vector3.up));
+            float x = Random.Range(-0.03f, 0.03f);
+            float y = Random.Range(-0.03f, 0.03f);
+            float z = Random.Range(-0.03f, 0.03f);
+            if (starterAssetsInputs.aim){
+                Instantiate(bullet, bulletSpawnPointAssault.position, Quaternion.LookRotation(shootDirection + new Vector3(x/2f, y/2f, z/2f), Vector3.up));
+            }
+            else
+            {
+                Instantiate(bullet, bulletSpawnPointAssault.position, Quaternion.LookRotation(shootDirection + new Vector3(x, y, z), Vector3.up));
+            }
             bulletCountAssault -= 1;
         }
         isShootingAssault = false;
