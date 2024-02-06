@@ -248,7 +248,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void pistolShooting()
     {
-        if (starterAssetsInputs.attack && pistol.activeSelf)
+        if (starterAssetsInputs.attack && pistol.activeSelf && bulletCountPistol > 0)
         {
             if (audioEnabled)
             {
@@ -273,7 +273,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void assaultShooting()
     {
-        if (starterAssetsInputs.attack && assault.activeSelf)
+        if (starterAssetsInputs.attack && assault.activeSelf && bulletCountAssault > 0)
         {
             if (audioEnabled)
             {
