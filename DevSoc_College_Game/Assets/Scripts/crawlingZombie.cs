@@ -24,7 +24,7 @@ public class crawlingZombie : MonoBehaviour
     public float walkPointRange;
     bool inSightRange,inAttackRange;
     public float sightRange,attackRange,bodysightRange;
-    public bool isbodyrange;
+    public bool isbodyrange = true;
     public float canEatRange;
 
     //used for attacking
@@ -45,9 +45,10 @@ public class crawlingZombie : MonoBehaviour
 
     private void Update(){
         //check for sight and attack range
+        //isbodyrange = Physics.CheckSphere(transform.position, 400f, isBody);
         inSightRange = Physics.CheckSphere(transform.position,sightRange,isPlayer);
         inAttackRange = Physics.CheckSphere(transform.position,attackRange,isPlayer);
-        isbodyrange = Physics.CheckSphere(transform.position,bodysightRange,isBody);
+
 
         if (inSightRange && !inAttackRange){
             Chase();
@@ -55,8 +56,47 @@ public class crawlingZombie : MonoBehaviour
         if(inSightRange && inAttackRange){
             Attack();
         }
-        if(!inSightRange && !inAttackRange && isbodyrange){
-            Eatbody();
+        if (!inSightRange && !inAttackRange)
+        {
+            Patrol();
+        }
+        if(healthBar.attacked == true)
+        {
+            Attacked();
+        }
+    }
+
+    private void Patrol()
+    {
+        animator.SetBool("IsCrawling", true);
+
+        if (!walkPointSet)
+        {
+            SearchWalkPoint();
+        }
+        if (walkPointSet)
+        {
+            agent.SetDestination(walkPoint);
+        }
+
+        Vector3 distanceWalkPoint = transform.position - walkPoint;
+
+        if (distanceWalkPoint.magnitude < timeBetweenWalk)
+        {
+            walkPointSet = false;
+        }
+    }
+    
+    private void SearchWalkPoint()
+    {
+        float walkPointZ = UnityEngine.Random.Range(-walkPointRange, walkPointRange);
+        float walkPointX = UnityEngine.Random.Range(-walkPointRange, walkPointRange);
+
+        walkPoint = new Vector3(transform.position.x + walkPointX, transform.position.y, transform.position.z + walkPointZ);
+
+        if (Physics.Raycast(walkPoint, -transform.up, 2f, isGround))
+        {
+            walkPointSet = true;
         }
     }
 
@@ -68,7 +108,6 @@ public class crawlingZombie : MonoBehaviour
 
     private void Attack()
     {
-        animator.SetBool("IsAttacking",true);
         animator.SetBool("IsCrawling",false);
 
         if(!attacked){
@@ -87,17 +126,11 @@ public class crawlingZombie : MonoBehaviour
 
     private void Attacked()
     {
-        GetComponent<NavMeshAgent>().enabled = true;
-        GetComponent<ZombieScript>().enabled = true;
-        animator.SetBool("IsAttacked",false);
-        animator.SetBool("IsCrawling",true);
+        agent.SetDestination(player.position);
     }
 
     private void Chase()
     {
-        animator.SetBool("IsCrawling",true);
-        animator.SetBool("IsAttacking",false);
-
        agent.SetDestination(player.position);
     }
 }

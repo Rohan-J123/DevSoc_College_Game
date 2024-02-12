@@ -9,6 +9,7 @@ public class healthBar : MonoBehaviour
     [SerializeField] private float health = 100f;
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject zombie;
+    public static bool attacked = false;
     public GameObject healthbar;
     public float WaitTime;
     // Start is called before the first frame update
@@ -38,10 +39,11 @@ public class healthBar : MonoBehaviour
     {
         if (col.tag == "PlayerAttackKnife")
         {
+            attacked = true;
             animator.SetBool("IsAttacked",true);
             zombie.GetComponent<NavMeshAgent>().enabled = false;
             zombie.GetComponent<ZombieScript>().enabled = false;
-            Invoke("ResetNav", WaitTime);
+            Invoke(nameof(ResetNav), WaitTime);
             if (health > 0)
             {
                 health -= 5f;
@@ -54,9 +56,11 @@ public class healthBar : MonoBehaviour
         if (col.collider.tag == "PlayerAttackBullet")
         {
             animator.SetBool("IsAttacked",true);
+            animator.SetBool("IsRunCrawl", true);
             zombie.GetComponent<NavMeshAgent>().enabled = false;
             zombie.GetComponent<ZombieScript>().enabled = false;
-            Invoke("ResetNav", WaitTime);
+            Invoke(nameof(ResetNav), WaitTime);
+
             if (health > 0)
             {
                 health -= 15f;
@@ -68,5 +72,6 @@ public class healthBar : MonoBehaviour
     {
         zombie.GetComponent<NavMeshAgent>().enabled = true;
         zombie.GetComponent<ZombieScript>().enabled = true;
+        animator.SetBool("IsAttacked", false);
     }
 }
