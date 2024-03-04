@@ -17,8 +17,8 @@ public class PlayerAttack : MonoBehaviour
 
     [SerializeField] private GameObject bullet;
 
-    private bool isShootingPistol = false;
-    private bool isShootingAssault = false;
+    //private bool isShootingPistol = false;
+    //private bool isShootingAssault = false;
 
     [SerializeField] private Transform bulletSpawnPointPistol;
     [SerializeField] private Transform bulletSpawnPointAssault;
@@ -44,6 +44,7 @@ public class PlayerAttack : MonoBehaviour
 
     private PlayerAnimationController playerAnimationController;
 
+    [SerializeField] private GameObject crossHairImage;
 
     // Start is called before the first frame update
     void Start()
@@ -98,6 +99,15 @@ public class PlayerAttack : MonoBehaviour
             assaultText.fontSize = 18;
         }
 
+        if (starterAssetsInputs.aim)
+        {
+            crossHairImage.transform.localScale = new Vector3(1f, 1f, 1f);
+        }
+        else
+        {
+            crossHairImage.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+        }
+
         if (starterAssetsInputs.aim || starterAssetsInputs.attack) {
             if(knife.activeSelf) {
                 transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, Camera.main.transform.localEulerAngles.y, transform.localEulerAngles.z);
@@ -112,7 +122,7 @@ public class PlayerAttack : MonoBehaviour
                 aimRigAssault.weight = 0f;
             }
             else if (pistol.activeSelf){
-                isShootingAssault = false;
+                //isShootingAssault = false;
                 transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, Camera.main.transform.localEulerAngles.y - 15f, transform.localEulerAngles.z);
                 
                 selfAnim.SetBool("isAttacking", false);
@@ -125,10 +135,10 @@ public class PlayerAttack : MonoBehaviour
                     selfAnim.SetBool("isPistolShooting", true);
                     selfAnim.SetBool("isAiming", false);
 
-                    if(isShootingPistol == false){
-                        isShootingPistol = true;
-                        StartCoroutine(shootingPistol());
-                    }  
+                    //if(isShootingPistol == false){
+                    //    isShootingPistol = true;
+                    //    StartCoroutine(shootingPistol());
+                    //}  
                 }
                 else {
                     selfAnim.SetBool("isPistolShooting", false);
@@ -136,7 +146,7 @@ public class PlayerAttack : MonoBehaviour
                 }
             }
             else if (assault.activeSelf){
-                isShootingPistol = false;
+                //isShootingPistol = false;
                 transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, Camera.main.transform.localEulerAngles.y + 52f, transform.localEulerAngles.z);
                 
                 selfAnim.SetBool("isAttacking", false);
@@ -149,10 +159,10 @@ public class PlayerAttack : MonoBehaviour
                     selfAnim.SetBool("isAssaultShooting", true);
                     selfAnim.SetBool("isAssaultAiming", false);
 
-                    if(isShootingAssault == false){
-                        isShootingAssault = true;
-                        StartCoroutine(shootingAssault());
-                    } 
+                    //if(isShootingAssault == false){
+                    //    isShootingAssault = true;
+                    //    StartCoroutine(shootingAssault());
+                    //} 
                 }
                 else {
                     selfAnim.SetBool("isAssaultShooting", false);
@@ -174,45 +184,115 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    IEnumerator shootingPistol(){
-        isShootingPistol = true;
-        yield return new WaitForSeconds(0.6f);
+    //IEnumerator shootingPistol(){
+    //    isShootingPistol = true;
+    //    yield return new WaitForSeconds(0.6f);
 
-        if (starterAssetsInputs.attack && pistol.activeSelf) {
-            if (audioEnabled)
-            {
-                pistoltAudioSource.PlayOneShot(pistolAudioClip);
-            }
+    //    if (starterAssetsInputs.attack && pistol.activeSelf) {
+    //        if (audioEnabled)
+    //        {
+    //            pistoltAudioSource.PlayOneShot(pistolAudioClip);
+    //        }
 
-            Vector3 shootDirection = (mouseWorldPosition - bulletSpawnPointPistol.position).normalized;
-            Instantiate(bullet, bulletSpawnPointPistol.position, Quaternion.LookRotation(shootDirection, Vector3.up));
-            bulletCountPistol -= 1;
-        }
-        isShootingPistol = false;
-    }
+    //        Vector3 shootDirection = (mouseWorldPosition - bulletSpawnPointPistol.position).normalized;
+    //        float x = Random.Range(-0.03f, 0.03f);
+    //        float y = Random.Range(-0.03f, 0.03f);
+    //        float z = Random.Range(-0.03f, 0.03f);
+    //        if (starterAssetsInputs.aim)
+    //        {
+    //            Instantiate(bullet, bulletSpawnPointPistol.position, Quaternion.LookRotation(shootDirection + new Vector3(x / 2f, y / 2f, z / 2f), Vector3.up));
+    //        }
+    //        else
+    //        {
+    //            Instantiate(bullet, bulletSpawnPointPistol.position, Quaternion.LookRotation(shootDirection + new Vector3(x, y, z), Vector3.up));
+    //        }
+    //        // Instantiate(bullet, bulletSpawnPointPistol.position, Quaternion.LookRotation(shootDirection, Vector3.up));
+    //        bulletCountPistol -= 1;
+    //    }
+    //    isShootingPistol = false;
+    //}
 
-    IEnumerator shootingAssault(){
-        isShootingAssault = true;
-        if (audioEnabled)
-        {
-            assaultAudioSource.PlayOneShot(assaultAudioClip);
-        }
+    //IEnumerator shootingAssault(){
+    //    isShootingAssault = true;
+    //    if (audioEnabled)
+    //    {
+    //        assaultAudioSource.PlayOneShot(assaultAudioClip);
+    //    }
 
-        yield return new WaitForSeconds(0.2f);
+    //    yield return new WaitForSeconds(0.2f);
 
-        if (starterAssetsInputs.attack && assault.activeSelf) {
-            Vector3 shootDirection = (mouseWorldPosition - bulletSpawnPointAssault.position).normalized;
-            Instantiate(bullet, bulletSpawnPointAssault.position, Quaternion.LookRotation(shootDirection, Vector3.up));
-            bulletCountAssault -= 1;
-        }
-        isShootingAssault = false;
-    }
+    //    if (starterAssetsInputs.attack && assault.activeSelf) {
+    //        Vector3 shootDirection = (mouseWorldPosition - bulletSpawnPointAssault.position).normalized;
+    //        float x = Random.Range(-0.03f, 0.03f);
+    //        float y = Random.Range(-0.03f, 0.03f);
+    //        float z = Random.Range(-0.03f, 0.03f);
+    //        if (starterAssetsInputs.aim){
+    //            Instantiate(bullet, bulletSpawnPointAssault.position, Quaternion.LookRotation(shootDirection + new Vector3(x/2f, y/2f, z/2f), Vector3.up));
+    //        }
+    //        else
+    //        {
+    //            Instantiate(bullet, bulletSpawnPointAssault.position, Quaternion.LookRotation(shootDirection + new Vector3(x, y, z), Vector3.up));
+    //        }
+    //        bulletCountAssault -= 1;
+    //    }
+    //    isShootingAssault = false;
+    //}
 
     private void OnTriggerEnter(Collider col)
     {
         if (col.tag == "Climbable")
         {
             playerAnimationController.isClimbing = true;
+        }
+    }
+
+    public void pistolShooting()
+    {
+        if (starterAssetsInputs.attack && pistol.activeSelf && bulletCountPistol > 0)
+        {
+            if (audioEnabled)
+            {
+                pistoltAudioSource.PlayOneShot(pistolAudioClip);
+            }
+
+            Vector3 shootDirection = (mouseWorldPosition - bulletSpawnPointPistol.position).normalized;
+            float x = Random.Range(-0.03f, 0.03f);
+            float y = Random.Range(-0.03f, 0.03f);
+            float z = Random.Range(-0.03f, 0.03f);
+            if (starterAssetsInputs.aim)
+            {
+                Instantiate(bullet, bulletSpawnPointPistol.position, Quaternion.LookRotation(shootDirection + new Vector3(x / 2f, y / 2f, z / 2f), Vector3.up));
+            }
+            else
+            {
+                Instantiate(bullet, bulletSpawnPointPistol.position, Quaternion.LookRotation(shootDirection + new Vector3(x, y, z), Vector3.up));
+            }
+            bulletCountPistol -= 1;
+        }
+    }
+
+    public void assaultShooting()
+    {
+        if (starterAssetsInputs.attack && assault.activeSelf && bulletCountAssault > 0)
+        {
+            if (audioEnabled)
+            {
+                assaultAudioSource.PlayOneShot(assaultAudioClip);
+            }
+
+            Vector3 shootDirection = (mouseWorldPosition - bulletSpawnPointAssault.position).normalized;
+            float x = Random.Range(-0.03f, 0.03f);
+            float y = Random.Range(-0.03f, 0.03f);
+            float z = Random.Range(-0.03f, 0.03f);
+            if (starterAssetsInputs.aim)
+            {
+                Instantiate(bullet, bulletSpawnPointAssault.position, Quaternion.LookRotation(shootDirection + new Vector3(x / 2f, y / 2f, z / 2f), Vector3.up));
+            }
+            else
+            {
+                Instantiate(bullet, bulletSpawnPointAssault.position, Quaternion.LookRotation(shootDirection + new Vector3(x, y, z), Vector3.up));
+            }
+            bulletCountAssault -= 1;
         }
     }
 }
